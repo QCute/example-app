@@ -1,10 +1,12 @@
 # Admin
 A Game Manage System Power By [Laravel](https://github.com/laravel) and [PeadAdmin](http://www.PearAdmin.com)  
+  
 
 # Requirements
-* [PHP](https://github.com/php) >= 8.3.0  
+* [PHP](https://github.com/php) >= 8.4.0  
 * PHP [Swoole](https://github.com/swoole) Extension  
 * [Laravel](https://github.com/laravel) >= 11.0.0  
+* [LayUI](https://LayUI.dev) >= 2.9.10  
 * [PearAdmin](https://PearAdmin.com) >= 4.0.0  
 * [Composer](https://github.com/composer)  
 * [Git](https://git-scm.com/)  
@@ -19,8 +21,8 @@ git clone https://github.com/QCute/admin && cd admin
 Clone UI framework
 ```sh
 cd public
-mkdir -p vendor
-cd vendor
+mkdir -p build
+cd build
 
 # clone ui
 git clone https://github.com/pearadmin/pear-admin-layui
@@ -105,7 +107,8 @@ php artisan octane:start --host=0.0.0.0 --port=80
 ```
 
 # Usage 
-Open http://admin.localhost/ or http://localhost/admin/ in browser.
+* Open http://admin.localhost/ in browser if you setup route domain.  
+* Open http://localhost/admin/ in browser if you setup route prefix.
 
 # Advance
 
