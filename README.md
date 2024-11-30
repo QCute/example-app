@@ -1,8 +1,8 @@
-# Admin
+## Admin
 A Game Manage System Power By [Laravel](https://github.com/laravel) and [PeadAdmin](http://www.PearAdmin.com)  
   
 
-# Requirements
+## Requirements
 * [PHP](https://github.com/php) >= 8.4.0  
 * PHP [Swoole](https://github.com/swoole) Extension  
 * [Laravel](https://github.com/laravel) >= 11.0.0  
@@ -11,14 +11,14 @@ A Game Manage System Power By [Laravel](https://github.com/laravel) and [PeadAdm
 * [Composer](https://github.com/composer)  
 * [Git](https://git-scm.com/)  
 
-# Installation
+## Installation
 
-Clone repo
+#### Clone repo
 ```sh
 git clone https://github.com/QCute/admin && cd admin
 ```
 
-Clone UI framework
+#### Clone UI framework
 ```sh
 cd public
 mkdir -p build
@@ -38,22 +38,22 @@ git clone https://gitee.com/pear-admin/pear-admin-site.git
 cd ../../
 ```
 
-Install dependency  
+#### Install dependency  
 ```sh
 composer install -vvv
 ```
 
-Make env file  
+#### Make env file  
 ```sh
 cp .env.example .env
 ```
 
-Generate Key  
+#### Generate Key  
 ```sh
 php artisan key:generate
 ```
 
-Change Domain and/or Prefix  
+#### Change Domain and/or Prefix  
 ```
 # http://admin.localhost
 ADMIN_ROUTE_DOMAIN=admin
@@ -61,7 +61,7 @@ ADMIN_ROUTE_DOMAIN=admin
 ADMIN_ROUTE_PREFIX=admin
 ```
 
-Setup Database Connection  
+#### Setup Database Connection  
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -78,27 +78,27 @@ DB_PREFIX_API=api_
 DB_PREFIX_WEB=web_
 ```
 
-Create Database  
+#### Create Database  
 ```sql
 create database `laravel`;
 ```
 
-Migrate Table  
+#### Migrate Table  
 ```sh
 php artisan migrate
 ```
 
-Seed Role/Permission/Menu Data  
+#### Seed Role/Permission/Menu Data  
 ```sh
 php artisan db:seed
 ```
 
-Create User  
+#### Create User  
 ```sh
 php artisan admin:create-user
 ```
 
-Run  
+#### Run  
 ```sh
 # laravel
 php artisan serve --host=0.0.0.0 --port=80
@@ -106,30 +106,30 @@ php artisan serve --host=0.0.0.0 --port=80
 php artisan octane:start --host=0.0.0.0 --port=80
 ```
 
-# Usage 
+#### Usage 
 * Open http://admin.localhost/ in browser if you setup route domain.  
 * Open http://localhost/admin/ in browser if you setup route prefix.
 
-# Advance
+## Advance
 
-### Table Order Sort
+#### Table Order Sort
 ```sh
 php artisan sorter:order "table name"
 ```
 
-### Data Migration
+#### Data Migration
 ```sh
 # export seeder
 php artisan seeder:export "config name"
 ```
 
-### Install SSH Pass Script
+#### Install SSH Pass Script
 ```sh
 # the sshpass script is used to manage the remote machine
 php artisan sshpass:install
 ```
 
-### Run Release Mode Using SystemDaemon
+#### Run Release Mode Using SystemDaemon
 ```sh
 # install unit
 sudo php artisan service:install
@@ -137,7 +137,7 @@ sudo php artisan service:install
 sudo systemctl start laravel-admin.service
 ```
 
-# Tables
+## Tables
 
 * Laravel
     * cache
