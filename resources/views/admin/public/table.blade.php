@@ -136,7 +136,7 @@
                     <script type="text/html" id="tag">
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
                             <span class="layui-btn layui-btn-xs layui-bg-blue" style="margin-right: 10px;">
-                                @{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}
+                                @{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}
                             </span>
                         @{{#  } else { }}
                             <span class="layui-btn layui-btn-xs layui-bg-blue" style="margin-right: 10px;">
@@ -149,7 +149,7 @@
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
                             @{{#  layui.each(d[d.LAY_COL.field], function(index, item){ }}
                                 <span class="layui-btn layui-btn-xs layui-bg-blue" style="margin-right: 10px;">
-                                    @{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], item) }}
+                                    @{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], item) }}
                                 </span>
                             @{{#  }); }}
                         @{{#  } else { }}
@@ -163,7 +163,7 @@
 
                     <script type="text/html" id="image">
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
-                            <img src="@{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}" style="width: 24px; height: 24px" lay-on="photos">
+                            <img src="@{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}" style="width: 24px; height: 24px" lay-on="photos">
                         @{{#  } else { }}
                             <img src="@{{= d[d.LAY_COL.field] }}" style="width: 24px; height: 24px" lay-on="photos">
                         @{{#  } }}
@@ -172,7 +172,7 @@
                     <script type="text/html" id="images">
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
                             @{{#  layui.each(d[d.LAY_COL.field], function(index, item){ }}
-                                <img src="@{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], item) }}" style="width: 24px; height: 24px" lay-on="photos">
+                                <img src="@{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], item) }}" style="width: 24px; height: 24px" lay-on="photos">
                             @{{#  }); }}
                         @{{#  } else { }}
                             @{{#  layui.each(d[d.LAY_COL.field].split(','), function(index, item) { }}
@@ -183,7 +183,7 @@
 
                     <script type="text/html" id="icon">
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
-                            <i class="@{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}"></i>
+                            <i class="@{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], d[d.LAY_COL.field]) }}"></i>
                         @{{#  } else { }}
                             <i class="@{{= d[d.LAY_COL.field] }}"></i>
                         @{{#  } }}
@@ -192,7 +192,7 @@
                     <script type="text/html" id="icons">
                         @{{#  if(typeof d[d.LAY_COL.field] === 'object') { }}
                             @{{#  layui.each(d[d.LAY_COL.field], function(index, item){ }}
-                                <i class="@{{= d.LAY_COL.value.split('.').reduce((a, i) => a[i], item) }}"></i>
+                                <i class="@{{= d.LAY_COL.templetSchema.split('.').reduce((a, i) => a[i], item) }}"></i>
                             @{{#  }); }}
                         @{{#  } else { }}
                             @{{#  layui.each(d[d.LAY_COL.field].split(','), function(index, item) { }}

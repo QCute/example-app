@@ -44,7 +44,7 @@ class UserController extends Controller
             (new Header())->field('username')->title(trans('admin.user.username'))->align()->width(160),
             (new Header())->field('name')->title(trans('admin.user.name'))->align()->width(160),
             (new Header())->field('avatar')->title(trans('admin.user.avatar'))->align()->width(32)->templet('image'),
-            (new Header())->field('roles')->title(trans('admin.user.roles'))->align()->templet('tags')->value('name'),
+            (new Header())->field('roles')->title(trans('admin.user.roles'))->align()->templet('tags', 'name'),
             (new Header())->field(Model::CREATED_AT)->title(trans('admin.time.created.at'))->align()->width(160),
             (new Header())->field(Model::UPDATED_AT)->title(trans('admin.time.updated.at'))->align()->width(160),
             (new Header())->field('')->title(trans('admin.table.operate'))->align()->width(220)->toolbar(),
@@ -142,28 +142,23 @@ class UserController extends Controller
         $form
             ->display('id')
             ->label(trans('admin.user.id'))
-            ->value($data->id)
-            ->required();
+            ->value($data->id);
         $form
             ->display('username')
             ->label(trans('admin.user.username'))
-            ->value($data->username)
-            ->required();
+            ->value($data->username);
         $form
             ->display('password')
             ->label(trans('admin.user.password'))
-            ->value($data->username)
-            ->required();
+            ->value($data->password);
         $form
             ->display('name')
             ->label(trans('admin.user.name'))
-            ->value($data->username)
-            ->required();
+            ->value($data->name);
         $form
             ->image('avatar')
             ->label(trans('admin.user.avatar'))
-            ->value($data->avatar)
-            ->required();
+            ->value($data->avatar);
         $form
             ->multipleSelect('roles')
             ->label(trans('admin.user.roles'))
@@ -206,14 +201,15 @@ class UserController extends Controller
         $form
             ->multipleSelect('roles')
             ->label(trans('admin.user.roles'))
-            ->value($data->roles);
+            ->value($data->roles)
+            ->required();
 
         return $form->name(trans('admin.form.edit'))->method('PATCH')->build();
     }
 
     public function update(Request $request, int $id)
     {
-        $user = UserModel::withOnly(['userRoles'])->find($id);
+        $user = UserModel::withOnly(['roles'])->find($id);
 
         $roles = $request->input('roles') ?? [];
         $roles = RoleModel::findMany($roles);
@@ -226,37 +222,30 @@ class UserController extends Controller
                 'avatar' => $request->input('avatar'),
             ];
 
-            UserModel::withOnly(['roles'])->where('id', '=', $id)->update($attributes);
+            UserModel::where('id', '=', $id)->update($attributes);
 
-            $create = [];
-            foreach($roles as $role) {
-                if(is_null($user->roles->find($role->id))) {
-                    $create[] = $role;
-                    continue;
-                }
-            }
-
-            $create = collect($create)
+            $roleCreate = $roles
+                ->filter(function($role) use ($user) {
+                    return is_null($user->roles->find($role->id));
+                })
                 ->map(function($role) use ($user) {
                     return ['user_id' => $user->id, 'role_id' => $role->id];
                 })
                 ->toArray();
 
-            UserRoleModel::insert($create);
-      
-            $destroy = [];
-            foreach($user->roles as $role) {
-                if(is_null($roles->find($role->id))) {
-                    $destroy[] = $role;
-                    continue;
-                }
-            }
+            UserRoleModel::insert($roleCreate);
 
-            $destroy = collect($destroy)->map(function($role) {
-                return $role->pivot->id;
-            });
-
-            UserRoleModel::destroy($destroy);
+            $roleDestroy = $user
+                ->roles
+                ->filter(function($role) use ($roles) {
+                    return is_null($roles->find($role->id));
+                })
+                ->map(function($role) {
+                    return $role->pivot->id;
+                })
+                ->toArray();
+    
+            UserRoleModel::destroy($roleDestroy);
 
             DB::commit();
         } catch(Exception $exception) {

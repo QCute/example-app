@@ -24,11 +24,11 @@ class Header implements JsonSerializable
      */
     public $templet;
 
-    /** The value registered on the controller.
+    /** The templet schema registered on the controller.
      * 
      * @var string
      */
-    public $value;
+    public $templetSchema;
 
     /** The align registered on the controller.
      * 
@@ -86,16 +86,11 @@ class Header implements JsonSerializable
         return $this;
     }
 
-    public function templet(string $templet): static
+    public function templet(string $templet, string $schema = ''): static
     {
         $this->templet = '#' . $templet;
 
-        return $this;
-    }
-
-    public function value(string $value): static
-    {
-        $this->value = $value;
+        $this->templetSchema = $schema;
 
         return $this;
     }
