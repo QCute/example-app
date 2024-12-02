@@ -25,7 +25,7 @@ class UserController extends Controller
 
         $form
             ->text('id')
-            ->label(trans('admin.id'));
+            ->label(trans('admin.user.id'));
         $form
             ->text('username')
             ->label(trans('admin.user.username'));
@@ -40,7 +40,7 @@ class UserController extends Controller
             ->label(trans('admin.time.updated.at'));
 
         $header = [
-            (new Header())->field('id')->title(trans('admin.id'))->align()->width(32),
+            (new Header())->field('id')->title(trans('admin.user.id'))->align()->width(32),
             (new Header())->field('username')->title(trans('admin.user.username'))->align()->width(160),
             (new Header())->field('name')->title(trans('admin.user.name'))->align()->width(160),
             (new Header())->field('avatar')->title(trans('admin.user.avatar'))->align()->width(32)->templet('image'),

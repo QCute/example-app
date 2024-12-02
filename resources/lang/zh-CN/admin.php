@@ -40,13 +40,15 @@ return [
     'role.menus' => '菜单列表',
 
     'permission' => '权限',
+    'permission.id' => '权限ID',
     'permission.name' => '名字',
     'permission.tag' => '标签',
-    'permission.http.method' => 'Http方法',
-    'permission.http.path' => 'Http路径',
+    'permission.http_method' => 'Http方法',
+    'permission.http_path' => 'Http路径',
 
     'menu' => '菜单',
-    'menu.parent.id' => '父ID',
+    'menu.id' => '菜单ID',
+    'menu.parent_id' => '父ID',
     'menu.type' => '类型',
     'menu.order' => '顺序',
     'menu.title' => '标题',

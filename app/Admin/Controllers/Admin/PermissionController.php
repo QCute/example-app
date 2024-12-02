@@ -45,9 +45,9 @@ class PermissionController extends Controller
         $header = [
             (new Header())->field('id')->title(trans('admin.permission.id'))->align()->width(32),
             (new Header())->field('name')->title(trans('admin.permission.name'))->align()->width(160),
-            (new Header())->field('tag')->title(trans('admin.permission.tag'))->align()->width(32)->templet('tag'),
-            (new Header())->field('http_method')->title(trans('admin.permission.http_method'))->align()->width(160),
-            (new Header())->field('http_path')->title(trans('admin.permission.http_path'))->align()->width(160),
+            (new Header())->field('tag')->title(trans('admin.permission.tag'))->align()->width(width: 160)->templet('tag'),
+            (new Header())->field('http_method')->title(trans('admin.permission.http_method'))->align(),
+            (new Header())->field('http_path')->title(trans('admin.permission.http_path'))->align(),
             (new Header())->field(Model::CREATED_AT)->title(trans('admin.time.created.at'))->align()->width(160),
             (new Header())->field(Model::UPDATED_AT)->title(trans('admin.time.updated.at'))->align()->width(160),
             (new Header())->field('')->title(trans('admin.table.operate'))->align()->width(220)->toolbar(),

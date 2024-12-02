@@ -40,13 +40,15 @@ return [
     'role.menus' => 'Menus',
 
     'permission' => 'Permission',
+    'permission.id' => 'PermissionID',
     'permission.name' => 'Name',
     'permission.tag' => 'Tag',
-    'permission.http.method' => 'HttpMethod',
-    'permission.http.path' => 'HttpPath',
+    'permission.http_method' => 'HttpMethod',
+    'permission.http_path' => 'HttpPath',
 
     'menu' => 'Menu',
-    'menu.parent.id' => 'ParentID',
+    'menu.id' => 'MenuID',
+    'menu.parent_id' => 'ParentID',
     'menu.type' => 'Type',
     'menu.order' => 'Order',
     'menu.title' => 'Title',

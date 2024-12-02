@@ -150,7 +150,7 @@
                             acc[k] = v;
                             return acc;
                         }, {});
-                    if(config.url.indexOf('/menu') >= 0) {
+                    if(config.url === '{{ config('admin.vendor.config.url') }}') {
                         menu = state
                             .responseJSON
                             .map(m => [m, m.children])

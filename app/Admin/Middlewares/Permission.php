@@ -22,7 +22,7 @@ class Permission
             return $next($request);    
         }
 
-        if(PermissionService::check($request)) {
+        if(!PermissionService::check($request)) {
             return PermissionService::error();
         }
 

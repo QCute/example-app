@@ -3,6 +3,7 @@
 namespace App\Admin\Models\Admin;
 
 use App\Admin\Models\Model;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PermissionModel extends Model
 {
@@ -25,5 +26,10 @@ class PermissionModel extends Model
         $this->table = config('admin.database.permission_table');
 
         parent::__construct($attributes);
+    }
+
+    public static function getPage(int $page, int $perPage, array $input = []): LengthAwarePaginator
+    {
+        return (new static())->withInput($input)->paginate($perPage, ['*'], 'page', $page);
     }
 }

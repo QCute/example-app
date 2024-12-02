@@ -65,6 +65,7 @@ class BuilderTestController extends Controller
         $transfer->right()->value('rv')->label('this is rv');
 
         $form->icon('icon')->label('m-icon')->value('layui-icon-face-smile');
+        $form->iconPicker('icon-picker')->label('m-icon')->value('layui-icon-face-smile');
         $form->html('transfer-html')->label('a-html')->value('<div><p>this is html</p></div>');
 
         $form->button('a-btn')->label('a-btn')->value('a-btn-value');

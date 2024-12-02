@@ -277,10 +277,7 @@ class RoleController extends Controller
 
             RoleMenuModel::destroy($menuDestroy);
 
-            collect($menuDestroy)->forEach(function($id) {
-                $permission = RoleMenuModel::find($id) ? 'ROLE' : '';
-                MenuModel::where('id', '=', $id)->update(['permission' => $permission]);
-            });
+            // todo update menu permission
 
             DB::commit();
         } catch(Exception $exception) {

@@ -23,6 +23,7 @@ use Illuminate\Support\Str;
  * @method Form\Hidden         hidden($name)
  * @method Form\Html           html($name)
  * @method Form\Icon           icon($name)
+ * @method Form\IconPicker     iconPicker($name)
  * @method Form\Image          image($name)
  * @method Form\Month          month($name)
  * @method Form\MultipleSelect multipleSelect($name)

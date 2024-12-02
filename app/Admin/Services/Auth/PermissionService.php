@@ -57,12 +57,7 @@ class PermissionService
      */
     public static function error()
     {
-        $vendor = config('admin.vendor.framework');
-        $forbiddenView = config('admin.vendor.view.forbidden');
-
-        $data = file_get_contents(public_path("$vendor/$forbiddenView"));
-
-        return new Response($data);
+        return new Response(admin_view(config('admin.vendor.view.forbidden')));
     }
 
     /**
