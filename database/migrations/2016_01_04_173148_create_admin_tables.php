@@ -129,6 +129,7 @@ return new class extends Migration
             $table->string('title')->default('')->comment('');
             $table->string('icon')->default('')->comment('');
             $table->string('url')->default('')->comment('');
+            $table->string('permission')->default('')->comment('');
             $table->integer('created_time')->unsigned()->default(0)->comment('');
             $table->integer('updated_time')->unsigned()->default(0)->comment('');
             $table->integer('deleted_time')->unsigned()->default(0)->comment('');

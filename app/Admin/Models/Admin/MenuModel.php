@@ -39,6 +39,7 @@ class MenuModel extends Model
                 return $query->whereIn('role_id', $roles);
             })
             ->with('children')
+            ->orWhere('permission', '=', '')
             ->where('url', '=', $path)
             ->orderBy('order')
             ->first();
@@ -53,6 +54,7 @@ class MenuModel extends Model
                 return $query->whereIn('role_id', $roles);
             })
             ->with('children')
+            ->orWhere('permission', '=', '')
             ->where('parent_id', '=', 0)
             ->orderBy('order')
             ->get()

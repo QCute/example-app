@@ -129,6 +129,10 @@ class RoleController extends Controller
 
             RoleMenuModel::insert($roleMenus);
 
+            collect($roleMenus)->forEach(function($menu) {
+                MenuModel::where('id', '=', $menu['menu_id'])->update(['permission' => 'ROLE']);
+            });
+
             DB::commit();
         } catch(Exception $exception) {
             DB::rollBack();
@@ -244,7 +248,7 @@ class RoleController extends Controller
                 })
                 ->toArray();
 
-            PermissionModel::destroy($permissionDestroy);
+            RolePermissionModel::destroy($permissionDestroy);
 
             $menuCreate = $menus
                 ->filter(function($menu) use ($role) {
@@ -257,6 +261,10 @@ class RoleController extends Controller
 
             RoleMenuModel::insert($menuCreate);
 
+            collect($menuCreate)->forEach(function($menu) {
+                MenuModel::where('id', '=', $menu['menu_id'])->update(['permission' => 'ROLE']);
+            });
+
             $menuDestroy = $role
                 ->menus
                 ->filter(function($menu) use ($menus) {
@@ -267,7 +275,12 @@ class RoleController extends Controller
                 })
                 ->toArray();
 
-            MenuModel::destroy($menuDestroy);
+            RoleMenuModel::destroy($menuDestroy);
+
+            collect($menuDestroy)->forEach(function($id) {
+                $permission = RoleMenuModel::find($id) ? 'ROLE' : '';
+                MenuModel::where('id', '=', $id)->update(['permission' => $permission]);
+            });
 
             DB::commit();
         } catch(Exception $exception) {
