@@ -966,11 +966,18 @@ class IconPicker extends Field
     ];
 
     /**
-     * The default registered on the controller.
+     * The default icon set registered on the controller.
      * 
      * @var array
      */
-    public $default = 'layui-icon-edit';
+    public $defaultIconSet = 'layui-icon';
+
+    /**
+     * The default icon registered on the controller.
+     * 
+     * @var array
+     */
+    public $defaultIcon = 'layui-icon-edit';
 
     /**
      * The attributes registered on the controller.
@@ -988,14 +995,6 @@ class IconPicker extends Field
         $this->attributes['name'] = $name;
 
         $this->attributes['lay-filter'] = 'icon-picker-' . $name;
-
-        $this->prefix('layui-icon ' . $this->default);
-
-        $this->option()->value('')->label('');
-
-        foreach($this->icons as $icon) {
-            $this->option()->value('layui-icon' . ' ' . $icon['class'])->label($icon['name']);
-        }
     }
 
     public function prefix(string $prefix): static
@@ -1026,6 +1025,19 @@ class IconPicker extends Field
         $label = $this->formatLabel();
 
         $attributes = $this->formatAttributes();
+
+        if($this->prefix === '') {
+            $this->prefix($this->defaultIconSet . ' ' . $this->defaultIcon);
+        }
+
+        if(empty($this->options)) {
+
+            $this->option()->value('')->label('');
+    
+            foreach($this->icons as $icon) {
+                $this->option()->value('layui-icon' . ' ' . $icon['class'])->label($icon['name']);
+            }
+        }
 
         $options = collect($this->options)
             ->map(function($item) {

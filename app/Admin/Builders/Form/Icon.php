@@ -9,17 +9,47 @@ class Icon extends Field
      * 
      * @var array
      */
-    public $attributes = [];
+    public $attributes = [
+        'class' => [
+            'layui-form-label',
+        ],
+        'style' => [
+            'width' => 'auto',
+            'padding-left' => 0,
+        ],
+    ];
+
+    /**
+     * The default icon set registered on the controller.
+     * 
+     * @var array
+     */
+    public $defaultIconSet = 'layui-icon';
+
+    public function value(string $value): static
+    {
+        $data = array_reverse(explode(' ', $value));
+        
+        $iconSet = $data[1] ?? $this->defaultIconSet;
+
+        $icon = $data[0];
+
+        $this->class([$iconSet, $icon]);
+
+        return $this;
+    }
 
     public function render(): string
     {
         $label = $this->formatLabel();
 
+        $attributes = $this->formatAttributes();
+
         return <<<HTML
 <div class="layui-form-item layui-{$this->getDisplay()}">
     $label
     <div class="layui-input-{$this->getDisplay()}">
-        <i class="layui-form-label layui-icon {$this->value}" style="width: auto; padding-left: 0;"></i>
+        <i {$attributes}></i>
     </div>
 </div>
 HTML;
