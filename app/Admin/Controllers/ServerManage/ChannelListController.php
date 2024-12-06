@@ -74,8 +74,8 @@ class ChannelListController extends Controller
 
         $form = $this->buildCreate($form, $columns);
 
-        $transfer = $form->transfer('roles')->label(trans('admin.role'))->title(trans('admin.role'), trans('admin.role'));
         $user = AuthService::user();
+        $transfer = $form->transfer('roles')->label(trans('admin.role'))->title(trans('admin.role'), trans('admin.role'));
 
         foreach ($user->roles as $role) {
             $transfer->left()->label($role->name)->value($role->id);
@@ -152,8 +152,6 @@ class ChannelListController extends Controller
 
         $form = $this->buildEdit($form, $columns, $data);
 
-        $transfer = $form->transfer('roles')->label(trans('admin.role'))->title(trans('admin.role'), trans('admin.role'));
-
         $user = AuthService::user();
 
         $roles = collect($user->roles)->keyBy('id');
@@ -162,6 +160,8 @@ class ChannelListController extends Controller
         $diff = $roles->diffKeys($roleChannels);
         $interset = $roles->intersectByKeys($roleChannels);
    
+        $transfer = $form->transfer('roles')->label(trans('admin.role'))->title(trans('admin.role'), trans('admin.role'));
+
         foreach ($diff as $role) {
             $transfer->left()->label($role->name)->value($role->id);
         }

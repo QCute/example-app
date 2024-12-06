@@ -13,6 +13,7 @@ use App\Admin\Models\Admin\RoleModel;
 use App\Admin\Models\Admin\RolePermissionModel;
 use App\Admin\Models\Admin\RoleMenuModel;
 use App\Admin\Models\Model;
+use App\Admin\Services\Auth\AuthService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,12 +85,25 @@ class RoleController extends Controller
             ->text('tag')
             ->label(trans('admin.role.tag'))
             ->required();
-        $form
-            ->multipleSelect('permissions')
-            ->label(trans('admin.role.permissions'));
-        $form
-            ->multipleSelect('menus')
-            ->label(trans('admin.role.menus'));
+
+        $user = AuthService::user();
+        $transfer = $form
+            ->transfer('permissions')
+            ->label(trans('admin.role.permissions'))
+            ->title(trans('admin.role.permissions'), trans('admin.role.permissions'));
+
+        foreach ($user->roles->map(function($role) { return $role->permissions; })->flatten() as $permission) {
+            $transfer->left()->label($permission->name)->value($permission->id);
+        }
+
+        $transfer = $form
+            ->transfer('menus')
+            ->label(trans('admin.role.menus'))
+            ->title(trans('admin.role.menus'), trans('admin.role.menus'));
+
+        foreach ($user->roles->map(function($role) { return $role->menus; })->flatten() as $menu) {
+            $transfer->left()->label($menu->name)->value($menu->id);
+        }
 
         return $form->name(trans('admin.form.create'))->build();
     }
@@ -159,14 +173,22 @@ class RoleController extends Controller
             ->display('tag')
             ->label(trans('admin.role.tag'))
             ->value($data->tag);
-        $form
-            ->multipleSelect('permissions')
-            ->label(trans('admin.role.permissions'))
-            ->value($data->permissions);
-        $form
-            ->multipleSelect('menus')
-            ->label(trans('admin.role.menus'))
-            ->value($data->menus);
+
+        $permissions = $form
+            ->tags('permissions')
+            ->label(trans('admin.role.permissions'));
+
+        foreach($data->permissions as $permission) {
+            $permissions->tag()->value($permission->name);
+        }
+
+        $menus = $form
+            ->tags('menus')
+            ->label(trans('admin.role.menus'));
+
+        foreach($data->menus as $menu) {
+            $menus->tag()->value($menu->name);
+        }
     
         return $form->name(trans('admin.form.show'))->build();
     }

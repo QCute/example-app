@@ -11,6 +11,7 @@ use App\Admin\Models\Admin\RoleModel;
 use App\Admin\Models\Admin\UserRoleModel;
 use App\Admin\Models\Model;
 use App\Admin\Models\Admin\UserModel;
+use App\Admin\Services\Auth\AuthService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,9 +92,16 @@ class UserController extends Controller
             ->image('avatar')
             ->label(trans('admin.user.avatar'))
             ->required();
-        $form
-            ->multipleSelect('roles')
-            ->label(trans('admin.user.roles'));
+
+        $user = AuthService::user();
+        $transfer = $form
+            ->transfer('roles')
+            ->label(trans('admin.role'))
+            ->title(trans('admin.role'), trans('admin.role'));
+
+        foreach ($user->roles as $role) {
+            $transfer->left()->label($role->name)->value($role->id);
+        }
 
         return $form->name(trans('admin.form.create'))->build();
     }
@@ -158,10 +166,14 @@ class UserController extends Controller
             ->image('avatar')
             ->label(trans('admin.user.avatar'))
             ->value($data->avatar);
-        $form
-            ->multipleSelect('roles')
-            ->label(trans('admin.user.roles'))
-            ->value($data->roles);
+
+        $roles = $form
+            ->tags('roles')
+            ->label(trans('admin.user.roles'));
+
+        foreach($data->roles as $role) {
+            $roles->tag()->value($role->name);
+        }
 
         return $form->name(trans('admin.form.show'))->build();
     }
@@ -197,11 +209,24 @@ class UserController extends Controller
             ->label(trans('admin.user.avatar'))
             ->value($data->avatar)
             ->required();
-        $form
-            ->multipleSelect('roles')
-            ->label(trans('admin.user.roles'))
-            ->value($data->roles)
-            ->required();
+
+        $user = AuthService::user();
+
+        $roles = collect($user->roles)->keyBy('id');
+        $userRoles = collect($data->roles)->keyBy('role_id');
+
+        $diff = $roles->diffKeys($userRoles);
+        $interset = $roles->intersectByKeys($userRoles);
+   
+        $transfer = $form->transfer('roles')->label(trans('admin.role'))->title(trans('admin.role'), trans('admin.role'));
+
+        foreach ($diff as $role) {
+            $transfer->left()->label($role->name)->value($role->id);
+        }
+
+        foreach ($interset as $role) {
+            $transfer->right()->label($role->name)->value($role->id);
+        }
 
         return $form->name(trans('admin.form.edit'))->method('PATCH')->build();
     }

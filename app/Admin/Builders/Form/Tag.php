@@ -11,13 +11,13 @@ class Tag extends Field
      */
     public $attributes = [
         'type' => 'button',
-        'class' => ['layui-btn', 'layui-btn-xs', 'layui-bg-green'],
+        'class' => ['layui-btn', 'layui-btn-xs', 'layui-bg-blue'],
         'style' => [
             'margin-top' => '8px'
         ]
     ];
 
-    public function color(string $color = 'green'): static
+    public function color(string $color = 'blue'): static
     {
         $color = 'layui-btn-' . $color;
 
