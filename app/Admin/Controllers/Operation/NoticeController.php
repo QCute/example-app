@@ -47,7 +47,6 @@ class NoticeController extends Controller
         $perPage = $request->input('perPage', 10);
         $input = $request->except(['_token', 'page', 'perPage']);
         $paginator = NoticeModel::getPage($page, $perPage, $input);
-
         $data = $paginator->items();
 
         $paginate = (new Page())

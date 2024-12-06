@@ -16,7 +16,6 @@ use App\Admin\Models\Model;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class RoleController extends Controller 
 {
@@ -56,7 +55,6 @@ class RoleController extends Controller
         $perPage = $request->input('perPage', 10);
         $input = $request->except(['_token', 'page', 'perPage']);
         $paginator = RoleModel::getPage($page, $perPage, $input);
-
         $data = $paginator->items();
 
         $paginate = (new Page())

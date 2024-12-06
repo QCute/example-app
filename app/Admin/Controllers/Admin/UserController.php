@@ -54,7 +54,6 @@ class UserController extends Controller
         $perPage = $request->input('perPage', 10);
         $input = $request->except(['_token', 'page', 'perPage']);
         $paginator = UserModel::getPage($page, $perPage, $input);
-
         $data = $paginator->items();
 
         $paginate = (new Page())

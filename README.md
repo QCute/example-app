@@ -109,6 +109,7 @@ php artisan octane:start --host=0.0.0.0 --port=80
 #### Usage 
 * Open http://admin.localhost/ in browser if you setup route domain.  
 * Open http://localhost/admin/ in browser if you setup route prefix.
+* Open http://admin.localhost/admin/ in browser if you setup route domain and prefix.
 
 ## Advance
 

@@ -57,7 +57,6 @@ class PermissionController extends Controller
         $perPage = $request->input('perPage', 10);
         $input = $request->except(['_token', 'page', 'perPage']);
         $paginator = PermissionModel::getPage($page, $perPage, $input);
-
         $data = $paginator->items();
 
         $paginate = (new Page())
