@@ -151,12 +151,11 @@ sudo systemctl start laravel-admin.service
 
 * Admin
     * user
-    * user_permission
     * user_role
     * role
     * role_permission
-    * role_menu
     * permission
+    * menu
     * operation_log
 
 * Extend
